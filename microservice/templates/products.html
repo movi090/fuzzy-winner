@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<body>
+    <h1>Add Product</h1>
+    <form action="/add_product" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price" required><br>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required></textarea><br>
+
+        <input type="submit" value="Add Product">
+    </form>
+
+    <h1>View Products</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product[0] }}</td>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[2] }}</td>
+            <td>{{ product[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Загрузка изображения</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <input type="file" id="imageInput">
+    <button onclick="handleImageUpload()">Обработать штрих-код</button>
+
+    <div id="resultContainer"></div>
+
+    <script>
+        function handleImageUpload() {
+            var fileInput = document.getElementById('imageInput');
+            var file = fileInput.files[0];
+
+            var formData = new FormData();
+            formData.append('image', file);
+
+            $.ajax({
+                url: '/process_image',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var resultContainer = document.getElementById('resultContainer');
+                    resultContainer.innerText = 'Штрих-код: ' + response;
+                },
+                error: function(xhr, status, error) {
+                    var resultContainer = document.getElementById('resultContainer');
+                    resultContainer.innerText = 'Произошла ошибка: ' + error;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
